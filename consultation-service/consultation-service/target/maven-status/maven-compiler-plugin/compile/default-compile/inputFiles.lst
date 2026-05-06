@@ -1,0 +1,13 @@
+D:\online-appointment-app\online-appointment-app\consultation-service\consultation-service\src\main\java\com\app\consultation\config\SecurityConfig.java
+D:\online-appointment-app\online-appointment-app\consultation-service\consultation-service\src\main\java\com\app\consultation\service\ConsultationService.java
+D:\online-appointment-app\online-appointment-app\consultation-service\consultation-service\src\main\java\com\app\consultation\dto\PrescriptionSummaryRequest.java
+D:\online-appointment-app\online-appointment-app\consultation-service\consultation-service\src\main\java\com\app\consultation\controller\ConsultationController.java
+D:\online-appointment-app\online-appointment-app\consultation-service\consultation-service\src\main\java\com\app\consultation\dto\ConsultationCompletionRequest.java
+D:\online-appointment-app\online-appointment-app\consultation-service\consultation-service\src\main\java\com\app\consultation\repository\ConsultationRepository.java
+D:\online-appointment-app\online-appointment-app\consultation-service\consultation-service\src\main\java\com\app\consultation\security\JwtUtil.java
+D:\online-appointment-app\online-appointment-app\consultation-service\consultation-service\src\main\java\com\app\consultation\dto\ConsultationResponse.java
+D:\online-appointment-app\online-appointment-app\consultation-service\consultation-service\src\main\java\com\app\consultation\security\JwtFilter.java
+D:\online-appointment-app\online-appointment-app\consultation-service\consultation-service\src\main\java\com\app\consultation\ConsultationServiceApplication.java
+D:\online-appointment-app\online-appointment-app\consultation-service\consultation-service\src\main\java\com\app\consultation\dto\ConsultationRequest.java
+D:\online-appointment-app\online-appointment-app\consultation-service\consultation-service\src\main\java\com\app\consultation\entity\Consultation.java
+D:\online-appointment-app\online-appointment-app\consultation-service\consultation-service\src\main\java\com\app\consultation\exception\GlobalExceptionHandler.java
