@@ -1,0 +1,8 @@
+com\app\records\security\JwtUtil.class
+com\app\records\entity\RecordAttachment.class
+com\app\records\security\JwtFilter.class
+com\app\records\dto\AttachmentRequest.class
+com\app\records\entity\PrescriptionItem.class
+com\app\records\dto\PrescriptionItemRequest.class
+com\app\records\entity\MedicalRecord.class
+com\app\records\dto\MedicalRecordResponse.class

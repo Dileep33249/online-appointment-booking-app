@@ -1,0 +1,15 @@
+D:\online-appointment-app\online-appointment-app\medical-record-service\medical-record-service\src\main\java\com\app\records\dto\PrescriptionItemRequest.java
+D:\online-appointment-app\online-appointment-app\medical-record-service\medical-record-service\src\main\java\com\app\records\controller\MedicalRecordController.java
+D:\online-appointment-app\online-appointment-app\medical-record-service\medical-record-service\src\main\java\com\app\records\dto\AttachmentRequest.java
+D:\online-appointment-app\online-appointment-app\medical-record-service\medical-record-service\src\main\java\com\app\records\service\MedicalRecordService.java
+D:\online-appointment-app\online-appointment-app\medical-record-service\medical-record-service\src\main\java\com\app\records\entity\PrescriptionItem.java
+D:\online-appointment-app\online-appointment-app\medical-record-service\medical-record-service\src\main\java\com\app\records\repository\MedicalRecordRepository.java
+D:\online-appointment-app\online-appointment-app\medical-record-service\medical-record-service\src\main\java\com\app\records\exception\GlobalExceptionHandler.java
+D:\online-appointment-app\online-appointment-app\medical-record-service\medical-record-service\src\main\java\com\app\records\entity\MedicalRecord.java
+D:\online-appointment-app\online-appointment-app\medical-record-service\medical-record-service\src\main\java\com\app\records\security\JwtFilter.java
+D:\online-appointment-app\online-appointment-app\medical-record-service\medical-record-service\src\main\java\com\app\records\entity\RecordAttachment.java
+D:\online-appointment-app\online-appointment-app\medical-record-service\medical-record-service\src\main\java\com\app\records\MedicalRecordServiceApplication.java
+D:\online-appointment-app\online-appointment-app\medical-record-service\medical-record-service\src\main\java\com\app\records\security\JwtUtil.java
+D:\online-appointment-app\online-appointment-app\medical-record-service\medical-record-service\src\main\java\com\app\records\dto\MedicalRecordResponse.java
+D:\online-appointment-app\online-appointment-app\medical-record-service\medical-record-service\src\main\java\com\app\records\config\SecurityConfig.java
+D:\online-appointment-app\online-appointment-app\medical-record-service\medical-record-service\src\main\java\com\app\records\dto\CreateMedicalRecordRequest.java
