@@ -1,0 +1,75 @@
+server:
+  port: 8087
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    discovery:
+      locator:
+        enabled: true
+        lower-case-service-id: true
+    gateway:
+      routes:
+        - id: auth-service
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/auth/**,/oauth2/**,/login/**,/users/**
+
+        - id: provider-service
+          uri: lb://PROVIDER-SERVICE
+          predicates:
+            - Path=/providers/**
+
+        - id: appointment-service
+          uri: lb://APPOINTMENT-SERVICE
+          predicates:
+            - Path=/slots/**,/appointments/**
+
+        - id: payment-service
+          uri: lb://PAYMENT-SERVICE
+          predicates:
+            - Path=/payments/**
+
+        - id: notification-service
+          uri: lb://NOTIFICATION-SERVICE
+          predicates:
+            - Path=/notifications/**
+
+        - id: consultation-service
+          uri: lb://CONSULTATION-SERVICE
+          predicates:
+            - Path=/consultations/**
+
+        - id: medical-record-service
+          uri: lb://MEDICAL-RECORD-SERVICE
+          predicates:
+            - Path=/records/**
+
+        - id: admin-service
+          uri: lb://ADMIN-SERVICE
+          predicates:
+            - Path=/admin/**
+
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:3000"
+              - "http://127.0.0.1:5173"
+              - "http://localhost:5173"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - "*"
+            allowCredentials: false
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
