@@ -8,5 +8,8 @@ import lombok.*;
 @Builder
 public class ConsultationCompletionRequest {
     private String diagnosis;
+    private String symptoms;
     private String notes;
+    private String prescriptionSummary;
 }
+

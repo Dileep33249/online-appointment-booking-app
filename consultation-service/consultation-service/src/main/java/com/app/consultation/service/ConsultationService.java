@@ -51,7 +51,9 @@ public class ConsultationService {
         Consultation consultation = load(appointmentId);
         consultation.setStatus("COMPLETED");
         consultation.setDiagnosis(request.getDiagnosis());
+        consultation.setSymptoms(request.getSymptoms());
         consultation.setNotes(request.getNotes());
+        consultation.setPrescriptionSummary(request.getPrescriptionSummary());
         consultation.setCompletedAt(LocalDateTime.now());
         return map(consultationRepository.save(consultation));
     }
