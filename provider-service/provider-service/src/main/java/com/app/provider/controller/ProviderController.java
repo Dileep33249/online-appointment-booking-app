@@ -89,7 +89,7 @@ public class ProviderController {
     }
 
     @DeleteMapping("/me/unavailable-dates")
-    public ResponseEntity<Void> removeMyUnavailableDate(@RequestParam LocalDate date,
+    public ResponseEntity<Void> removeMyUnavailableDate(@RequestParam @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE) LocalDate date,
                                                         Authentication authentication) {
         Long userId = (Long) authentication.getPrincipal();
         ProviderResponse provider = service.getByUserId(userId);
@@ -136,7 +136,7 @@ public class ProviderController {
     }
 
     @DeleteMapping("/{id}/unavailable-dates")
-    public ResponseEntity<Void> removeUnavailableDate(@PathVariable Long id, @RequestParam LocalDate date) {
+    public ResponseEntity<Void> removeUnavailableDate(@PathVariable Long id, @RequestParam @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE) LocalDate date) {
         service.removeUnavailableDate(id, date);
         return ResponseEntity.noContent().build();
     }
@@ -158,7 +158,7 @@ public class ProviderController {
     }
 
     @GetMapping("/internal/{providerId}/available-on")
-    public ResponseEntity<Boolean> isAvailableOn(@PathVariable Long providerId, @RequestParam LocalDate date) {
+    public ResponseEntity<Boolean> isAvailableOn(@PathVariable Long providerId, @RequestParam @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE) LocalDate date) {
         return ResponseEntity.ok(service.isAvailableOn(providerId, date));
     }
 }
