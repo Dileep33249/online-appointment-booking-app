@@ -51,7 +51,7 @@ public class SlotController {
 
     @GetMapping("/public")
     public ResponseEntity<List<SlotResponse>> getPublicSlots(
-            @RequestParam(required = false) LocalDate date,
+            @RequestParam(required = false) @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE) LocalDate date,
             @RequestParam(required = false) String specialization,
             @RequestParam(required = false) String search
     ) {

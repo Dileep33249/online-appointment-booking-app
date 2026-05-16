@@ -3,22 +3,26 @@ package com.app.appointment.service;
 import com.app.appointment.dto.AppointmentNotificationEvent;
 import com.app.appointment.dto.CreateNotificationRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 @Service
 public class NotificationService {
-    private final RestTemplate restTemplate;
+    private final RabbitMQProducer rabbitMQProducer;
 
-    public NotificationService(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
+    public NotificationService(RabbitMQProducer rabbitMQProducer) {
+        this.rabbitMQProducer = rabbitMQProducer;
     }
 
     public void sendNotification(CreateNotificationRequest request) {
-        restTemplate.postForObject(
-                "http://notification-service/notifications/internal",
-                request,
-                Object.class
-        );
+        // Fallback or keep for specific internal calls if needed, 
+        // but let's route to RabbitMQ as well.
+        publish(AppointmentNotificationEvent.builder()
+                .userId(request.getUserId())
+                .appointmentId(request.getAppointmentId())
+                .type(request.getType())
+                .channel(request.getChannel())
+                .message(request.getMessage())
+                .scheduledFor(request.getScheduledFor())
+                .build());
     }
 
     public void sendBookingConfirmation(AppointmentNotificationEvent event) {
@@ -38,13 +42,11 @@ public class NotificationService {
     }
 
     private void publish(AppointmentNotificationEvent event) {
-        sendNotification(CreateNotificationRequest.builder()
-                .userId(event.getUserId())
-                .appointmentId(event.getAppointmentId())
-                .type(event.getType())
-                .channel(event.getChannel())
-                .message(event.getMessage())
-                .scheduledFor(event.getScheduledFor())
-                .build());
+        try {
+            rabbitMQProducer.sendNotificationEvent(event);
+        } catch (Exception e) {
+            System.err.println("Failed to send notification via RabbitMQ: " + e.getMessage());
+            // Don't throw the exception, let the transaction commit successfully
+        }
     }
 }

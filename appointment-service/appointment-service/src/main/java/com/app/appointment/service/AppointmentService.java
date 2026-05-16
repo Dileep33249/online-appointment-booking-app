@@ -11,6 +11,8 @@ public interface AppointmentService {
     AppointmentResponse cancelAppointment(Long appointmentId, Long userId);
     AppointmentResponse rescheduleAppointment(Long appointmentId, Long userId, RescheduleAppointmentRequest request);
     AppointmentResponse completeAppointment(Long appointmentId, Long providerId);
+    AppointmentResponse markAsMet(Long appointmentId, Long providerId);
+    AppointmentResponse confirmPayment(Long appointmentId);
     List<AppointmentResponse> getMyAppointments(Long userId);
     List<AppointmentResponse> getProviderAppointments(Long providerId);
 }

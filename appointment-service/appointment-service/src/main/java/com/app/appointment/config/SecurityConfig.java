@@ -23,6 +23,7 @@ public class SecurityConfig {
                         ).permitAll()
                         .requestMatchers(HttpMethod.GET, "/slots/public").permitAll()
                         .requestMatchers(HttpMethod.GET, "/slots/provider/*").permitAll()
+                        .requestMatchers("/appointments/*/internal/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/slots").hasRole("DOCTOR")
                         .requestMatchers(HttpMethod.GET, "/slots/my").hasRole("DOCTOR")
                         .requestMatchers(HttpMethod.POST, "/appointments/book/*").hasRole("PATIENT")

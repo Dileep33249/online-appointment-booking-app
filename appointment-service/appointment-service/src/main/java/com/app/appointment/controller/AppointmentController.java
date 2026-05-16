@@ -90,4 +90,27 @@ public class AppointmentController {
         Long providerId = Long.valueOf(provider.get("id").toString());
         return ResponseEntity.ok(appointmentService.completeAppointment(appointmentId, providerId));
     }
+
+    @PutMapping("/{appointmentId}/meet")
+    public ResponseEntity<AppointmentResponse> markAsMet(@PathVariable Long appointmentId,
+                                                         Authentication authentication) {
+        Long userId = (Long) authentication.getPrincipal();
+
+        Map<?, ?> provider = restTemplate.getForObject(
+                "http://provider-service/providers/internal/by-user/" + userId,
+                Map.class
+        );
+
+        if (provider == null || provider.get("id") == null) {
+            throw new RuntimeException("Doctor provider profile not found");
+        }
+
+        Long providerId = Long.valueOf(provider.get("id").toString());
+        return ResponseEntity.ok(appointmentService.markAsMet(appointmentId, providerId));
+    }
+
+    @PostMapping("/{id}/internal/confirm-payment")
+    public ResponseEntity<AppointmentResponse> confirmPayment(@PathVariable Long id) {
+        return ResponseEntity.ok(appointmentService.confirmPayment(id));
+    }
 }

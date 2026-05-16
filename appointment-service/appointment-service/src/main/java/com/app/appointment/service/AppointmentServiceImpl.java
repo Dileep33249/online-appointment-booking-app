@@ -83,7 +83,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         Appointment appointment = Appointment.builder()
                 .userId(request.getUserId())
                 .slot(slot)
-                .status("BOOKED")
+                .status("PENDING")
                 .notes(request.getNotes())
                 .build();
 
@@ -111,8 +111,8 @@ public class AppointmentServiceImpl implements AppointmentService {
             throw new RuntimeException("You can cancel only your own appointment");
         }
 
-        if (!"BOOKED".equals(appointment.getStatus())) {
-            throw new RuntimeException("Only booked appointments can be cancelled");
+        if (!"BOOKED".equals(appointment.getStatus()) && !"PENDING".equals(appointment.getStatus()) && !"CONFIRMED".equals(appointment.getStatus())) {
+            throw new RuntimeException("This appointment cannot be cancelled in its current status");
         }
 
         appointment.setStatus("CANCELLED");
@@ -217,8 +217,10 @@ public class AppointmentServiceImpl implements AppointmentService {
             throw new RuntimeException("You can complete only your own appointments");
         }
 
-        if (!"BOOKED".equals(appointment.getStatus()) && !"RESCHEDULED".equals(appointment.getStatus())) {
-            throw new RuntimeException("Only active appointments can be completed");
+        // Allow completion if it was BOOKED, RESCHEDULED, CONFIRMED, or already marked as MET
+        String status = appointment.getStatus();
+        if (!"BOOKED".equals(status) && !"RESCHEDULED".equals(status) && !"CONFIRMED".equals(status) && !"MET".equals(status)) {
+            throw new RuntimeException("Only active or met appointments can be completed");
         }
 
         appointment.setStatus("COMPLETED");
@@ -229,6 +231,59 @@ public class AppointmentServiceImpl implements AppointmentService {
                 "COMPLETED",
                 "Appointment completed on " + appointment.getCompletedAt().toLocalDate()
         ));
+        return mapToResponse(saved);
+    }
+
+    @Override
+    @Transactional
+    public AppointmentResponse markAsMet(Long appointmentId, Long providerId) {
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new RuntimeException("Appointment not found"));
+
+        if (!appointment.getSlot().getProviderId().equals(providerId)) {
+            throw new RuntimeException("You can only mark your own appointments as met");
+        }
+
+        String status = appointment.getStatus();
+        if (!"BOOKED".equals(status) && !"RESCHEDULED".equals(status) && !"CONFIRMED".equals(status)) {
+            throw new RuntimeException("Only active appointments (Booked/Confirmed) can be marked as met. Current status: " + status);
+        }
+
+        appointment.setStatus("MET");
+        Appointment saved = appointmentRepository.save(appointment);
+        notificationService.sendNotification(CreateNotificationRequest.builder()
+                .userId(saved.getUserId())
+                .appointmentId(saved.getId())
+                .type("STATUS_UPDATE")
+                .channel("IN_APP")
+                .message("Your doctor has marked you as present (MET). Prescription follows.")
+                .scheduledFor(LocalDateTime.now())
+                .build());
+        return mapToResponse(saved);
+    }
+
+    @Override
+    @Transactional
+    public AppointmentResponse confirmPayment(Long appointmentId) {
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new RuntimeException("Appointment not found"));
+
+        if (!"PENDING".equals(appointment.getStatus())) {
+            return mapToResponse(appointment);
+        }
+
+        appointment.setStatus("CONFIRMED");
+        Appointment saved = appointmentRepository.save(appointment);
+        
+        notificationService.sendNotification(CreateNotificationRequest.builder()
+                .userId(saved.getUserId())
+                .appointmentId(saved.getId())
+                .type("PAYMENT_SUCCESS")
+                .channel("IN_APP")
+                .message("Payment confirmed! Your appointment is now officially scheduled.")
+                .scheduledFor(LocalDateTime.now())
+                .build());
+
         return mapToResponse(saved);
     }
 
