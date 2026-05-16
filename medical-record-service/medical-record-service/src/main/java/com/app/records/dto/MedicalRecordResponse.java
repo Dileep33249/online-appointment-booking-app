@@ -16,6 +16,7 @@ public class MedicalRecordResponse {
     private Long providerId;
     private String diagnosis;
     private String consultationNotes;
+    private String symptoms;
     private List<PrescriptionItemRequest> prescriptions;
     private List<AttachmentRequest> attachments;
     private LocalDateTime createdAt;

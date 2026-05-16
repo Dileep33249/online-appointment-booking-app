@@ -33,6 +33,9 @@ public class MedicalRecord {
     @Column(length = 4000)
     private String consultationNotes;
 
+    @Column(length = 2000)
+    private String symptoms;
+
     @OneToMany(mappedBy = "medicalRecord", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<PrescriptionItem> prescriptions = new ArrayList<>();

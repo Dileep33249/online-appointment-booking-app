@@ -30,7 +30,21 @@ public class MedicalRecordService {
                 .providerId(request.getProviderId())
                 .diagnosis(request.getDiagnosis())
                 .consultationNotes(request.getConsultationNotes())
+                .symptoms(request.getSymptoms())
                 .build();
+
+        if (request.getPrescriptions() != null) {
+            List<PrescriptionItem> items = request.getPrescriptions().stream()
+                    .map(itemReq -> PrescriptionItem.builder()
+                            .medicalRecord(medicalRecord)
+                            .medicineName(itemReq.getMedicineName())
+                            .dosage(itemReq.getDosage())
+                            .frequency(itemReq.getFrequency())
+                            .duration(itemReq.getDuration())
+                            .build())
+                    .toList();
+            medicalRecord.getPrescriptions().addAll(items);
+        }
 
         return map(medicalRecordRepository.save(medicalRecord));
     }
@@ -79,6 +93,7 @@ public class MedicalRecordService {
                 .providerId(record.getProviderId())
                 .diagnosis(record.getDiagnosis())
                 .consultationNotes(record.getConsultationNotes())
+                .symptoms(record.getSymptoms())
                 .prescriptions(record.getPrescriptions().stream()
                         .map(item -> PrescriptionItemRequest.builder()
                                 .medicineName(item.getMedicineName())
