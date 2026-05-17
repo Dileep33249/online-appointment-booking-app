@@ -1,0 +1,4 @@
+com\app\appointment\dto\CreateNotificationRequest$CreateNotificationRequestBuilder.class
+com\app\appointment\dto\CreateNotificationRequest.class
+com\app\appointment\dto\AppointmentNotificationEvent$AppointmentNotificationEventBuilder.class
+com\app\appointment\dto\AppointmentNotificationEvent.class
