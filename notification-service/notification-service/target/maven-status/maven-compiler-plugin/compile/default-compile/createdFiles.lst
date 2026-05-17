@@ -1,7 +1,0 @@
-com\app\notification\dto\CreateNotificationRequest$CreateNotificationRequestBuilder.class
-com\app\notification\exception\GlobalExceptionHandler.class
-com\app\notification\NotificationServiceApplication.class
-com\app\notification\dto\CreateNotificationRequest.class
-com\app\notification\dto\AppointmentNotificationEvent$AppointmentNotificationEventBuilder.class
-com\app\notification\dto\AppointmentNotificationEvent.class
-com\app\notification\controller\NotificationController.class
